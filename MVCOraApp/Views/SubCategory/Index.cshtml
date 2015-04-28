@@ -1,0 +1,45 @@
+﻿@model IEnumerable<DAL.TB_SUBCATEGORY>
+
+@{
+    ViewBag.Title = "Lista";
+}
+
+<h2>Listagem dos registros</h2>
+
+<p>
+    @Html.ActionLink("Novo", "Create")
+</p>
+<table>
+    <tr>
+        @*<th>
+            @Html.DisplayNameFor(model => model.ID_SUBCATEGORY)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.TB_CATEGORY.DESCRIPTION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DESCRIPTION)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.ID_SUBCATEGORY)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.TB_CATEGORY.DESCRIPTION)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DESCRIPTION)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.ID_SUBCATEGORY }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.ID_SUBCATEGORY }) |
+            @Html.ActionLink("Deletar", "Delete", new { id = item.ID_SUBCATEGORY })
+        </td>
+    </tr>
+}
+
+</table>

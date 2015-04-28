@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3c29c5eb67814e82b794044561f3c527" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.TB_CATEGORY" Width="1.5" PointX="6.625" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TB_GROUP" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TB_GROUP_USER" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TB_PRODUCT" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TB_PRODUCT_LOG" Width="1.5" PointX="11.625" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TB_SUBCATEGORY" Width="1.5" PointX="4.125" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TB_USER" Width="1.5" PointX="0.625" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VW_PRODUCT_CATEGORIES" Width="1.5" PointX="11.625" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_SUBCATEGORY_CATEGORY" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_GROUP_USER_GROUP" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_GROUP_USER_USER" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PRODUCT_USER" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PRODUCT_SUBCATEGORY" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

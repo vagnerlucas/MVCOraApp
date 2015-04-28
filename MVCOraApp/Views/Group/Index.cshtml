@@ -1,0 +1,45 @@
+﻿@model IEnumerable<DAL.TB_GROUP>
+
+@{
+    ViewBag.Title = "Lista";
+}
+
+<h2>Listagem de registros</h2>
+
+<p>
+    @Html.ActionLink("Novo", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ID_GROUP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GROUP_NAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GROUP_DESCRIPTION)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ID_GROUP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GROUP_NAME)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GROUP_DESCRIPTION)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.ID_GROUP }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.ID_GROUP }) |
+            @Html.ActionLink("Deletar", "Delete", new { id = item.ID_GROUP })
+        </td>
+    </tr>
+}
+
+</table>

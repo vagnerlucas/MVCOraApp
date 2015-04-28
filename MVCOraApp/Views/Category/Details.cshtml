@@ -1,0 +1,29 @@
+﻿@model DAL.TB_CATEGORY
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes do registro</h2>
+
+<fieldset>
+    <legend>TB_CATEGORY</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ID_CATEGORY)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_CATEGORY)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DESCRIPTION)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DESCRIPTION)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID_CATEGORY }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>

@@ -1,0 +1,33 @@
+﻿@model DAL.TB_CATEGORY
+
+@{
+    ViewBag.Title = "Deletar";
+}
+
+<h2>Deletar registro</h2>
+
+<h3>Tem certeza que deseja deletar o registro?</h3>
+<fieldset>
+    <legend>TB_CATEGORY</legend>
+
+    @*<div class="display-label">
+         @Html.DisplayNameFor(model => model.ID_CATEGORY)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_CATEGORY)
+    </div>*@
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DESCRIPTION)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DESCRIPTION)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Deletar" /> |
+        @Html.ActionLink("Voltar", "Index")
+    </p>
+}

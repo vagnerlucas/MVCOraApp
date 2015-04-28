@@ -1,0 +1,47 @@
+﻿@model DAL.TB_USER
+
+@{
+    ViewBag.Title = "Deletar";
+}
+
+<h2>Deletar registro</h2>
+
+<h3>Tem certeza que deseja deletar o registro?</h3>
+<fieldset>
+    <legend>TB_USER</legend>
+
+    @*<div class="display-label">
+         @Html.DisplayNameFor(model => model.ID_USER)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_USER)
+    </div>*@
+
+    <div class="editor-label">
+         @Html.DisplayNameFor(model => model.LOGIN)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LOGIN)
+    </div>
+
+    @*<div class="display-label">
+         @Html.DisplayNameFor(model => model.PASSWD)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PASSWD)
+    </div>*@
+
+    <div class="editor-label">
+         @Html.DisplayNameFor(model => model.USER_NAME)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.USER_NAME)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Deletar" /> |
+        @Html.ActionLink("Voltar ", "Index")
+    </p>
+}

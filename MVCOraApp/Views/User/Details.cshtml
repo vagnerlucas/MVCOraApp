@@ -1,0 +1,43 @@
+﻿@model DAL.TB_USER
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes</h2>
+
+<fieldset>
+    <legend>TB_USER</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ID_USER)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_USER)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LOGIN)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LOGIN)
+    </div>
+
+    @*<div class="display-label">
+         @Html.DisplayNameFor(model => model.PASSWD)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PASSWD)
+    </div>*@
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.USER_NAME)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.USER_NAME)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID_USER }) |
+    @Html.ActionLink("Voltar ", "Index")
+</p>

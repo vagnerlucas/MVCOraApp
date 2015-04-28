@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DAL.TB_USER>
+
+@{
+    ViewBag.Title = "Usuários";
+}
+
+<h2>Listagem de registros</h2>
+
+<p>
+    @Html.ActionLink("Novo", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ID_USER)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LOGIN)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.PASSWD)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.USER_NAME)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ID_USER)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LOGIN)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.PASSWD)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.USER_NAME)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.ID_USER }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.ID_USER }) |
+            @Html.ActionLink("Deletar", "Delete", new { id = item.ID_USER })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,44 @@
+﻿@model DAL.TB_CATEGORY
+
+@{
+    ViewBag.Title = "Criar";
+}
+
+<h2>Criar novo</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>TB_CATEGORY</legend>
+
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.ID_CATEGORY)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ID_CATEGORY)
+            @Html.ValidationMessageFor(model => model.ID_CATEGORY)
+        </div>*@
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DESCRIPTION)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DESCRIPTION)
+            @Html.ValidationMessageFor(model => model.DESCRIPTION)
+        </div>
+
+        <p>
+            <input type="submit" value="Criar" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Voltar", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

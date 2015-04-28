@@ -1,0 +1,50 @@
+﻿@model DAL.TB_USER
+
+@{
+    ViewBag.Title = "Log in";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<section id="loginForm">
+<h2>Use uma conta local para logar.</h2>
+@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Log in Form</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.LOGIN)
+                @Html.TextBoxFor(m => m.LOGIN)
+                @Html.ValidationMessageFor(m => m.LOGIN)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.PASSWD)
+                @Html.PasswordFor(m => m.PASSWD)
+                @Html.ValidationMessageFor(m => m.PASSWD)
+            </li>
+            <li>
+                @*@Html.CheckBoxFor(m => m.RememberMe)
+                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })*@
+            </li>
+        </ol>
+        <input type="submit" value="Log in" />
+    </fieldset>
+    <p>
+        @Html.ActionLink("Registre", "Register") se não tiver uma conta.
+    </p>
+}
+</section>
+
+@*<section class="social" id="socialLoginForm">
+    <h2>Use outro serviço para logar.</h2>
+    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+</section>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

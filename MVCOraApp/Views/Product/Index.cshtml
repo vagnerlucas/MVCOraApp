@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DAL.TB_PRODUCT>
+
+@{
+    ViewBag.Title = "Lista";
+}
+
+<h2>Listagem de registros</h2>
+
+<p>
+    @Html.ActionLink("Novo", "Create")
+</p>
+<table>
+    <tr>
+        @*<th>
+            @Html.DisplayNameFor(model => model.TB_GROUP_USER.OBS)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.TB_SUBCATEGORY.DESCRIPTION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DESCRIPTION)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.ID_USER)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.TB_GROUP_USER.OBS)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.TB_SUBCATEGORY.DESCRIPTION)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DESCRIPTION)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.ID_USER)
+        </td>*@
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.ID_PRODUCT }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.ID_PRODUCT }) |
+            @Html.ActionLink("Deletar", "Delete", new { id = item.ID_PRODUCT })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,36 @@
+﻿@model DAL.TB_GROUP
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes do registro</h2>
+
+<fieldset>
+    <legend>TB_GROUP</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ID_GROUP)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_GROUP)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.GROUP_NAME)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.GROUP_NAME)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.GROUP_DESCRIPTION)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.GROUP_DESCRIPTION)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID_GROUP }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>

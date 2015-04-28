@@ -1,0 +1,465 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="12.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="TB_CATEGORY">
+          <Key>
+            <PropertyRef Name="ID_CATEGORY" />
+          </Key>
+          <Property Name="ID_CATEGORY" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRIPTION" Type="varchar2" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_GROUP">
+          <Key>
+            <PropertyRef Name="ID_GROUP" />
+          </Key>
+          <Property Name="ID_GROUP" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="GROUP_NAME" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="GROUP_DESCRIPTION" Type="varchar2" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TB_GROUP_USER">
+          <Key>
+            <PropertyRef Name="ID_GROUP_USER" />
+          </Key>
+          <Property Name="ID_GROUP_USER" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID_USER" Type="int" Nullable="false" />
+          <Property Name="ID_GROUP" Type="int" Nullable="false" />
+          <Property Name="OBS" Type="varchar2" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TB_PRODUCT">
+          <Key>
+            <PropertyRef Name="ID_PRODUCT" />
+          </Key>
+          <Property Name="ID_PRODUCT" Type="int" Nullable="false" />
+          <Property Name="ID_SUBCATEGORY" Type="int" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="ID_USER" Type="int" Nullable="false" StoreGeneratedPattern="None" />
+        </EntityType>
+        <EntityType Name="TB_PRODUCT_LOG">
+          <Key>
+            <PropertyRef Name="ID_PRODUCT_LOG" />
+          </Key>
+          <Property Name="ID_PRODUCT_LOG" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID_USER" Type="int" Nullable="false" />
+          <Property Name="ID_PRODUCT" Type="int" Nullable="false" />
+          <Property Name="OPERATION" Type="varchar2" MaxLength="50" />
+          <Property Name="WHEN_REG" Type="date" />
+        </EntityType>
+        <EntityType Name="TB_SUBCATEGORY">
+          <Key>
+            <PropertyRef Name="ID_SUBCATEGORY" />
+          </Key>
+          <Property Name="ID_SUBCATEGORY" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID_CATEGORY" Type="int" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="varchar2" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TB_USER">
+          <Key>
+            <PropertyRef Name="ID_USER" />
+          </Key>
+          <Property Name="ID_USER" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LOGIN" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="PASSWD" Type="varchar2" MaxLength="200" />
+          <Property Name="USER_NAME" Type="varchar2" MaxLength="100" />
+          <Property Name="PASSWSALT" Type="varchar2" MaxLength="200" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C##VRL.VW_PRODUCT_CATEGORIES' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_PRODUCT_CATEGORIES">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Descrição" />
+            <PropertyRef Name="Categoria" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="None" />
+          <Property Name="Descrição" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="SubCategoria" Type="varchar2" MaxLength="100" />
+          <Property Name="Categoria" Type="varchar2" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_GROUP_USER_GROUP">
+          <End Role="TB_GROUP" Type="Self.TB_GROUP" Multiplicity="1" />
+          <End Role="TB_GROUP_USER" Type="Self.TB_GROUP_USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_GROUP">
+              <PropertyRef Name="ID_GROUP" />
+            </Principal>
+            <Dependent Role="TB_GROUP_USER">
+              <PropertyRef Name="ID_GROUP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GROUP_USER_USER">
+          <End Role="TB_USER" Type="Self.TB_USER" Multiplicity="1" />
+          <End Role="TB_GROUP_USER" Type="Self.TB_GROUP_USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_USER">
+              <PropertyRef Name="ID_USER" />
+            </Principal>
+            <Dependent Role="TB_GROUP_USER">
+              <PropertyRef Name="ID_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCT_SUBCATEGORY">
+          <End Role="TB_SUBCATEGORY" Type="Self.TB_SUBCATEGORY" Multiplicity="1" />
+          <End Role="TB_PRODUCT" Type="Self.TB_PRODUCT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_SUBCATEGORY">
+              <PropertyRef Name="ID_SUBCATEGORY" />
+            </Principal>
+            <Dependent Role="TB_PRODUCT">
+              <PropertyRef Name="ID_SUBCATEGORY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCT_USER">
+          <End Role="TB_GROUP_USER" Type="Self.TB_GROUP_USER" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TB_PRODUCT" Type="Self.TB_PRODUCT" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TB_GROUP_USER">
+              <PropertyRef Name="ID_GROUP_USER" />
+            </Principal>
+            <Dependent Role="TB_PRODUCT">
+              <PropertyRef Name="ID_PRODUCT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SUBCATEGORY_CATEGORY">
+          <End Role="TB_CATEGORY" Type="Self.TB_CATEGORY" Multiplicity="1" />
+          <End Role="TB_SUBCATEGORY" Type="Self.TB_SUBCATEGORY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_CATEGORY">
+              <PropertyRef Name="ID_CATEGORY" />
+            </Principal>
+            <Dependent Role="TB_SUBCATEGORY">
+              <PropertyRef Name="ID_CATEGORY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="TB_CATEGORY" EntityType="Self.TB_CATEGORY" Schema="C##VRL" store:Type="Tables" />
+          <EntitySet Name="TB_GROUP" EntityType="Self.TB_GROUP" Schema="C##VRL" store:Type="Tables" />
+          <EntitySet Name="TB_GROUP_USER" EntityType="Self.TB_GROUP_USER" Schema="C##VRL" store:Type="Tables" />
+          <EntitySet Name="TB_PRODUCT" EntityType="Self.TB_PRODUCT" Schema="C##VRL" store:Type="Tables" />
+          <EntitySet Name="TB_PRODUCT_LOG" EntityType="Self.TB_PRODUCT_LOG" Schema="C##VRL" store:Type="Tables" />
+          <EntitySet Name="TB_SUBCATEGORY" EntityType="Self.TB_SUBCATEGORY" Schema="C##VRL" store:Type="Tables" />
+          <EntitySet Name="TB_USER" EntityType="Self.TB_USER" Schema="C##VRL" store:Type="Tables" />
+          <EntitySet Name="VW_PRODUCT_CATEGORIES" EntityType="Self.VW_PRODUCT_CATEGORIES" store:Type="Views" store:Schema="C##VRL">
+            <DefiningQuery>SELECT 
+"VW_PRODUCT_CATEGORIES"."ID" AS "ID", 
+"VW_PRODUCT_CATEGORIES"."Descrição" AS "Descrição", 
+"VW_PRODUCT_CATEGORIES"."SubCategoria" AS "SubCategoria", 
+"VW_PRODUCT_CATEGORIES"."Categoria" AS "Categoria"
+FROM "C##VRL"."VW_PRODUCT_CATEGORIES" "VW_PRODUCT_CATEGORIES"</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_GROUP_USER_GROUP" Association="Self.FK_GROUP_USER_GROUP">
+            <End Role="TB_GROUP" EntitySet="TB_GROUP" />
+            <End Role="TB_GROUP_USER" EntitySet="TB_GROUP_USER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GROUP_USER_USER" Association="Self.FK_GROUP_USER_USER">
+            <End Role="TB_USER" EntitySet="TB_USER" />
+            <End Role="TB_GROUP_USER" EntitySet="TB_GROUP_USER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUCT_SUBCATEGORY" Association="Self.FK_PRODUCT_SUBCATEGORY">
+            <End Role="TB_SUBCATEGORY" EntitySet="TB_SUBCATEGORY" />
+            <End Role="TB_PRODUCT" EntitySet="TB_PRODUCT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUCT_USER" Association="Self.FK_PRODUCT_USER">
+            <End Role="TB_GROUP_USER" EntitySet="TB_GROUP_USER" />
+            <End Role="TB_PRODUCT" EntitySet="TB_PRODUCT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SUBCATEGORY_CATEGORY" Association="Self.FK_SUBCATEGORY_CATEGORY">
+            <End Role="TB_CATEGORY" EntitySet="TB_CATEGORY" />
+            <End Role="TB_SUBCATEGORY" EntitySet="TB_SUBCATEGORY" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityType Name="TB_CATEGORY">
+          <Key>
+            <PropertyRef Name="ID_CATEGORY" />
+          </Key>
+          <Property Name="ID_CATEGORY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TB_SUBCATEGORY" Relationship="Self.FK_SUBCATEGORY_CATEGORY" FromRole="TB_CATEGORY" ToRole="TB_SUBCATEGORY" />
+        </EntityType>
+        <EntityType Name="TB_GROUP">
+          <Key>
+            <PropertyRef Name="ID_GROUP" />
+          </Key>
+          <Property Name="ID_GROUP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GROUP_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GROUP_DESCRIPTION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TB_GROUP_USER" Relationship="Self.FK_GROUP_USER_GROUP" FromRole="TB_GROUP" ToRole="TB_GROUP_USER" />
+        </EntityType>
+        <EntityType Name="TB_GROUP_USER">
+          <Key>
+            <PropertyRef Name="ID_GROUP_USER" />
+          </Key>
+          <Property Name="ID_GROUP_USER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_USER" Type="Int32" Nullable="false" />
+          <Property Name="ID_GROUP" Type="Int32" Nullable="false" />
+          <Property Name="OBS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TB_GROUP" Relationship="Self.FK_GROUP_USER_GROUP" FromRole="TB_GROUP_USER" ToRole="TB_GROUP" />
+          <NavigationProperty Name="TB_USER" Relationship="Self.FK_GROUP_USER_USER" FromRole="TB_GROUP_USER" ToRole="TB_USER" />
+        </EntityType>
+        <EntityType Name="TB_PRODUCT">
+          <Key>
+            <PropertyRef Name="ID_PRODUCT" />
+          </Key>
+          <Property Name="ID_PRODUCT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_SUBCATEGORY" Type="Int32" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_USER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="TB_SUBCATEGORY" Relationship="Self.FK_PRODUCT_SUBCATEGORY" FromRole="TB_PRODUCT" ToRole="TB_SUBCATEGORY" />
+        </EntityType>
+        <EntityType Name="TB_PRODUCT_LOG">
+          <Key>
+            <PropertyRef Name="ID_PRODUCT_LOG" />
+          </Key>
+          <Property Name="ID_PRODUCT_LOG" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_USER" Type="Int32" Nullable="false" />
+          <Property Name="ID_PRODUCT" Type="Int32" Nullable="false" />
+          <Property Name="OPERATION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WHEN_REG" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="TB_SUBCATEGORY">
+          <Key>
+            <PropertyRef Name="ID_SUBCATEGORY" />
+          </Key>
+          <Property Name="ID_SUBCATEGORY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_CATEGORY" Type="Int32" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TB_CATEGORY" Relationship="Self.FK_SUBCATEGORY_CATEGORY" FromRole="TB_SUBCATEGORY" ToRole="TB_CATEGORY" />
+          <NavigationProperty Name="TB_PRODUCT" Relationship="Self.FK_PRODUCT_SUBCATEGORY" FromRole="TB_SUBCATEGORY" ToRole="TB_PRODUCT" />
+        </EntityType>
+        <EntityType Name="TB_USER">
+          <Key>
+            <PropertyRef Name="ID_USER" />
+          </Key>
+          <Property Name="ID_USER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LOGIN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PASSWD" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="USER_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWSALT" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TB_GROUP_USER" Relationship="Self.FK_GROUP_USER_USER" FromRole="TB_USER" ToRole="TB_GROUP_USER" />
+        </EntityType>
+        <EntityType Name="VW_PRODUCT_CATEGORIES">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Descrição" />
+            <PropertyRef Name="Categoria" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Descrição" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SubCategoria" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Categoria" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_SUBCATEGORY_CATEGORY">
+          <End Role="TB_CATEGORY" Type="Self.TB_CATEGORY" Multiplicity="1" />
+          <End Role="TB_SUBCATEGORY" Type="Self.TB_SUBCATEGORY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_CATEGORY">
+              <PropertyRef Name="ID_CATEGORY" />
+            </Principal>
+            <Dependent Role="TB_SUBCATEGORY">
+              <PropertyRef Name="ID_CATEGORY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GROUP_USER_GROUP">
+          <End Role="TB_GROUP" Type="Self.TB_GROUP" Multiplicity="1" />
+          <End Role="TB_GROUP_USER" Type="Self.TB_GROUP_USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_GROUP">
+              <PropertyRef Name="ID_GROUP" />
+            </Principal>
+            <Dependent Role="TB_GROUP_USER">
+              <PropertyRef Name="ID_GROUP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GROUP_USER_USER">
+          <End Role="TB_USER" Type="Self.TB_USER" Multiplicity="1" />
+          <End Role="TB_GROUP_USER" Type="Self.TB_GROUP_USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_USER">
+              <PropertyRef Name="ID_USER" />
+            </Principal>
+            <Dependent Role="TB_GROUP_USER">
+              <PropertyRef Name="ID_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCT_USER">
+          <End Role="TB_GROUP_USER" Type="Self.TB_GROUP_USER" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TB_PRODUCT" Type="Self.TB_PRODUCT" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TB_GROUP_USER">
+              <PropertyRef Name="ID_GROUP_USER" />
+            </Principal>
+            <Dependent Role="TB_PRODUCT">
+              <PropertyRef Name="ID_PRODUCT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCT_SUBCATEGORY">
+          <End Role="TB_SUBCATEGORY" Type="Self.TB_SUBCATEGORY" Multiplicity="1" />
+          <End Role="TB_PRODUCT" Type="Self.TB_PRODUCT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_SUBCATEGORY">
+              <PropertyRef Name="ID_SUBCATEGORY" />
+            </Principal>
+            <Dependent Role="TB_PRODUCT">
+              <PropertyRef Name="ID_SUBCATEGORY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TB_CATEGORY" EntityType="Self.TB_CATEGORY" />
+          <EntitySet Name="TB_GROUP" EntityType="Self.TB_GROUP" />
+          <EntitySet Name="TB_GROUP_USER" EntityType="Self.TB_GROUP_USER" />
+          <EntitySet Name="TB_PRODUCT" EntityType="Self.TB_PRODUCT" />
+          <EntitySet Name="TB_PRODUCT_LOG" EntityType="Self.TB_PRODUCT_LOG" />
+          <EntitySet Name="TB_SUBCATEGORY" EntityType="Self.TB_SUBCATEGORY" />
+          <EntitySet Name="TB_USER" EntityType="Self.TB_USER" />
+          <EntitySet Name="VW_PRODUCT_CATEGORIES" EntityType="Self.VW_PRODUCT_CATEGORIES" />
+          <AssociationSet Name="FK_SUBCATEGORY_CATEGORY" Association="Self.FK_SUBCATEGORY_CATEGORY">
+            <End Role="TB_CATEGORY" EntitySet="TB_CATEGORY" />
+            <End Role="TB_SUBCATEGORY" EntitySet="TB_SUBCATEGORY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GROUP_USER_GROUP" Association="Self.FK_GROUP_USER_GROUP">
+            <End Role="TB_GROUP" EntitySet="TB_GROUP" />
+            <End Role="TB_GROUP_USER" EntitySet="TB_GROUP_USER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GROUP_USER_USER" Association="Self.FK_GROUP_USER_USER">
+            <End Role="TB_USER" EntitySet="TB_USER" />
+            <End Role="TB_GROUP_USER" EntitySet="TB_GROUP_USER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUCT_USER" Association="Self.FK_PRODUCT_USER">
+            <End Role="TB_GROUP_USER" EntitySet="TB_GROUP_USER" />
+            <End Role="TB_PRODUCT" EntitySet="TB_PRODUCT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUCT_SUBCATEGORY" Association="Self.FK_PRODUCT_SUBCATEGORY">
+            <End Role="TB_SUBCATEGORY" EntitySet="TB_SUBCATEGORY" />
+            <End Role="TB_PRODUCT" EntitySet="TB_PRODUCT" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="TB_CATEGORY">
+            <EntityTypeMapping TypeName="Model.TB_CATEGORY">
+              <MappingFragment StoreEntitySet="TB_CATEGORY">
+                <ScalarProperty Name="ID_CATEGORY" ColumnName="ID_CATEGORY" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_GROUP">
+            <EntityTypeMapping TypeName="Model.TB_GROUP">
+              <MappingFragment StoreEntitySet="TB_GROUP">
+                <ScalarProperty Name="ID_GROUP" ColumnName="ID_GROUP" />
+                <ScalarProperty Name="GROUP_NAME" ColumnName="GROUP_NAME" />
+                <ScalarProperty Name="GROUP_DESCRIPTION" ColumnName="GROUP_DESCRIPTION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_GROUP_USER">
+            <EntityTypeMapping TypeName="Model.TB_GROUP_USER">
+              <MappingFragment StoreEntitySet="TB_GROUP_USER">
+                <ScalarProperty Name="ID_GROUP_USER" ColumnName="ID_GROUP_USER" />
+                <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
+                <ScalarProperty Name="ID_GROUP" ColumnName="ID_GROUP" />
+                <ScalarProperty Name="OBS" ColumnName="OBS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_PRODUCT">
+            <EntityTypeMapping TypeName="Model.TB_PRODUCT">
+              <MappingFragment StoreEntitySet="TB_PRODUCT">
+                <ScalarProperty Name="ID_PRODUCT" ColumnName="ID_PRODUCT" />
+                <ScalarProperty Name="ID_SUBCATEGORY" ColumnName="ID_SUBCATEGORY" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_PRODUCT_LOG">
+            <EntityTypeMapping TypeName="Model.TB_PRODUCT_LOG">
+              <MappingFragment StoreEntitySet="TB_PRODUCT_LOG">
+                <ScalarProperty Name="ID_PRODUCT_LOG" ColumnName="ID_PRODUCT_LOG" />
+                <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
+                <ScalarProperty Name="ID_PRODUCT" ColumnName="ID_PRODUCT" />
+                <ScalarProperty Name="OPERATION" ColumnName="OPERATION" />
+                <ScalarProperty Name="WHEN_REG" ColumnName="WHEN_REG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_SUBCATEGORY">
+            <EntityTypeMapping TypeName="Model.TB_SUBCATEGORY">
+              <MappingFragment StoreEntitySet="TB_SUBCATEGORY">
+                <ScalarProperty Name="ID_SUBCATEGORY" ColumnName="ID_SUBCATEGORY" />
+                <ScalarProperty Name="ID_CATEGORY" ColumnName="ID_CATEGORY" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_USER">
+            <EntityTypeMapping TypeName="Model.TB_USER">
+              <MappingFragment StoreEntitySet="TB_USER">
+                <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="PASSWD" ColumnName="PASSWD" />
+                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+                <ScalarProperty Name="PASSWSALT" ColumnName="PASSWSALT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_PRODUCT_CATEGORIES">
+            <EntityTypeMapping TypeName="Model.VW_PRODUCT_CATEGORIES">
+              <MappingFragment StoreEntitySet="VW_PRODUCT_CATEGORIES">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Descrição" ColumnName="Descrição" />
+                <ScalarProperty Name="SubCategoria" ColumnName="SubCategoria" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

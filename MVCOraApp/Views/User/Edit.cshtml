@@ -1,0 +1,62 @@
+﻿@model DAL.TB_USER
+
+@{
+    ViewBag.Title = "Editar";
+}
+
+<h2>Editar registro</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>TB_USER</legend>
+
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.ID_USER)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ID_USER)
+            @Html.ValidationMessageFor(model => model.ID_USER)
+        </div>*@
+
+        @Html.HiddenFor(model => model.ID_USER)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LOGIN)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LOGIN)
+            @Html.ValidationMessageFor(model => model.LOGIN)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PASSWD)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PASSWD)
+            @Html.ValidationMessageFor(model => model.PASSWD)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.USER_NAME)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.USER_NAME)
+            @Html.ValidationMessageFor(model => model.USER_NAME)
+        </div>
+
+        <p>
+            <input type="submit" value="Salvar" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Voltar ", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

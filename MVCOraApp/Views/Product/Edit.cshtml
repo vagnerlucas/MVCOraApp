@@ -1,0 +1,60 @@
+﻿@model DAL.TB_PRODUCT
+
+@{
+    ViewBag.Title = "Editar";
+}
+
+<h2>Editar registro</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>TB_PRODUCT</legend>
+
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.ID_PRODUCT, "TB_GROUP_USER")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ID_PRODUCT", String.Empty)
+            @Html.ValidationMessageFor(model => model.ID_PRODUCT)
+        </div>*@
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ID_SUBCATEGORY, "TB_SUBCATEGORY")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ID_SUBCATEGORY", String.Empty)
+            @Html.ValidationMessageFor(model => model.ID_SUBCATEGORY)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DESCRIPTION)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DESCRIPTION)
+            @Html.ValidationMessageFor(model => model.DESCRIPTION)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ID_USER)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ID_USER)
+            @Html.ValidationMessageFor(model => model.ID_USER)
+        </div>
+
+        <p>
+            <input type="submit" value="Salvar" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Voltar", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

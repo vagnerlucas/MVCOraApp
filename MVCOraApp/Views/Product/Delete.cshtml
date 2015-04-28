@@ -1,0 +1,47 @@
+﻿@model DAL.TB_PRODUCT
+
+@{
+    ViewBag.Title = "Deletar";
+}
+
+<h2>Deletar registro</h2>
+
+<h3>Tem certeza que deseja excluir o registro?</h3>
+<fieldset>
+    <legend>TB_PRODUCT</legend>
+
+    @*<div class="display-label">
+         @Html.DisplayNameFor(model => model.TB_GROUP_USER.OBS)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TB_GROUP_USER.OBS)
+    </div>*@
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TB_SUBCATEGORY.DESCRIPTION)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TB_SUBCATEGORY.DESCRIPTION)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DESCRIPTION)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DESCRIPTION)
+    </div>
+
+    @*<div class="display-label">
+         @Html.DisplayNameFor(model => model.ID_USER)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_USER)
+    </div>*@
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Deletar" /> |
+        @Html.ActionLink("Voltar", "Index")
+    </p>
+}

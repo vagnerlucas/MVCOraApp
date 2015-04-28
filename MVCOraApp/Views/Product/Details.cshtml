@@ -1,0 +1,43 @@
+﻿@model DAL.TB_PRODUCT
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes do registro</h2>
+
+<fieldset>
+    <legend>TB_PRODUCT</legend>
+
+    @*<div class="display-label">
+         @Html.DisplayNameFor(model => model.TB_GROUP_USER.OBS)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TB_GROUP_USER.OBS)
+    </div>*@
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TB_SUBCATEGORY.DESCRIPTION)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TB_SUBCATEGORY.DESCRIPTION)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DESCRIPTION)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DESCRIPTION)
+    </div>
+
+    @*<div class="display-label">
+         @Html.DisplayNameFor(model => model.ID_USER)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_USER)
+    </div>*@
+</fieldset>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID_PRODUCT }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>
